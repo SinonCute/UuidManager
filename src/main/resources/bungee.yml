@@ -1,0 +1,5 @@
+name: UuidManager
+version: '${project.version}'
+main: net.minevn.uuidmanager.UuidManager
+softDepends:
+  - floodgate

@@ -1,0 +1,10 @@
+BedrockProxy: false
+prefix: "&e&lMineVN"
+MySQL:
+  host: localhost
+  port: 3306
+  database: UuidManager
+  user:
+  pass:
+messages:
+  kick: "Bạn đang tham gia server không đúng phiên bản vui lòng vào bằng {0}"
