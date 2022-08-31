@@ -15,8 +15,8 @@ public class CheckPlayer extends Command {
     private final static UuidManager plugin = UuidManager.getInstance();
     @Override
     public void execute(CommandSender sender, String[] args) {
-        if (args.length != 0) {
-            String username = args[1];
+        if (args.length > 0) {
+            String username = args[0];
             switch (sql.getData(username)) {
                 case "0" -> plugin.getLogger().info(("§cPlayer {0} không tồn tại").replace("{0}", username));
                 case "1" -> plugin.getLogger().info(("§aPlayer {0} đã chơi trên Bedrock").replace("{0}", username));

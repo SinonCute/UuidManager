@@ -28,15 +28,13 @@ public class BedrockJoinEvent implements Listener {
             switch (sql.getData(playerName)) {
                 case "0" -> {
                     sql.setData(playerName, true);
-                    plugin.getLogger().info("0");
                 }
-                case "1" -> {plugin.getLogger().info("1");}
                 case "2" -> {
                     BaseComponent text = new TextComponent();
-                    text.addExtra(plugin.color(Config.prefix));
-                    text.addExtra(plugin.color(Config.messages_kick));
+                    text.addExtra(plugin.color(Config.prefix_space + Config.prefix));
+                    text.addExtra("\n" + "§f");
+                    text.addExtra(plugin.color(Config.messages_kick).replace("{0}", "Java"));
                     proxiedPlayer.disconnect(text);
-                    plugin.getLogger().info("2");
                 }
             }
         }

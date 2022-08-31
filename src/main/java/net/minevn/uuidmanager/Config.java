@@ -16,6 +16,7 @@ public class Config {
 
     public static boolean proxy_bedrock;
     public static String prefix;
+    public static String prefix_space;
     public static String mysql_host;
     public static int mysql_port;
     public static String mysql_database;
@@ -56,6 +57,7 @@ public class Config {
         Configuration config = getConfig();
         proxy_bedrock = config.getBoolean("BedrockProxy");
         prefix = config.getString("prefix");
+        prefix_space = config.getString("prefix-space");
         mysql_host = config.getString("MySQL.host");
         mysql_port = config.getInt("MySQL.port");
         mysql_database = config.getString("MySQL.database");

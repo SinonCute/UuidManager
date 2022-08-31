@@ -8,7 +8,6 @@ import net.md_5.bungee.api.event.LoginEvent;
 import net.md_5.bungee.api.event.PostLoginEvent;
 import net.md_5.bungee.api.plugin.Listener;
 import net.md_5.bungee.event.EventHandler;
-import net.md_5.bungee.event.EventPriority;
 import net.minevn.uuidmanager.Config;
 import net.minevn.uuidmanager.MySQL;
 import net.minevn.uuidmanager.UuidManager;
@@ -22,10 +21,9 @@ public class JavaJoinEvent implements Listener {
         plugin.getProxy().getPluginManager().registerListener(plugin, this);
     }
 
-    @EventHandler(priority = EventPriority.LOWEST)
+    @EventHandler
     public void onPostLogin(PostLoginEvent event) {
         ProxiedPlayer proxiedPlayer = event.getPlayer();
-        proxiedPlayer.sendMessage(new TextComponent("xin chao"));
         String playerName = proxiedPlayer.getName();
         switch (sql.getData(playerName)) {
             case "0" -> {
@@ -34,12 +32,9 @@ public class JavaJoinEvent implements Listener {
             case "1" -> {
                 BaseComponent text = new TextComponent();
                 text.addExtra(plugin.color(Config.prefix));
-                text.addExtra(plugin.color(Config.messages_kick));
+                text.addExtra("\n");
+                text.addExtra(plugin.color(Config.messages_kick).replace("{0}", "Bedrock"));
                 proxiedPlayer.disconnect(text);
-                plugin.getLogger().info("1");
-            }
-            case "2" -> {
-                plugin.getLogger().info("2");
             }
         }
     }

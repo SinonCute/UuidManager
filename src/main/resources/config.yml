@@ -1,5 +1,6 @@
 BedrockProxy: false
 prefix: "&e&lMineVN"
+prefix-space: "                                         §r"
 MySQL:
   host: localhost
   port: 3306
@@ -7,4 +8,5 @@ MySQL:
   user:
   pass:
 messages:
-  kick: "Bạn đang tham gia server không đúng phiên bản vui lòng vào bằng {0}"
+  kick: "Tên đăng nhập này đã đăng kí bằng phiên bản {0}, vui lòng vào server bằng Minecraft {0}"
+#Tự tạo table and colum

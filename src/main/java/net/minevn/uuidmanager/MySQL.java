@@ -47,7 +47,7 @@ public class MySQL {
         }
     }
     //endregion
-    private static final String PLAYER_DATA_SAVE = "insert into bedrock_players(name, isbedrock) values(@name:=?, @isbedrock:=?) on duplicate key update = isbedrock = @isbedrock";
+    private static final String PLAYER_DATA_SAVE = "insert into bedrock_players(name, isbedrock) values(@name:=?, @isbedrock:=?) on duplicate key update isbedrock = @isbedrock";
     private static final String PLAYER_DATA_GET = "select * from bedrock_players where name = ?";
     //region Player data
     public String getData(String username) {
@@ -76,16 +76,15 @@ public class MySQL {
 
     public void setData(String username, Boolean isBedrock) {
         PreparedStatement ps = null;
-        ResultSet r = null;
         try {
             ps = sql.prepareStatement(PLAYER_DATA_SAVE);
             ps.setString(1, username);
             ps.setBoolean(2, isBedrock);
-            r = ps.executeQuery();
+            ps.executeUpdate();
         } catch (SQLException e) {
             main.getLogger().log(Level.SEVERE, "Khong the lay thong tin cua " + username, e);
         } finally {
-            cleanup(r, ps);
+            cleanup(null, ps);
         }
     }
 
