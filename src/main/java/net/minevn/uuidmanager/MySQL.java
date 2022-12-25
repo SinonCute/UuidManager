@@ -47,10 +47,17 @@ public class MySQL {
         }
     }
     //endregion
+    //region Player data
     private static final String PLAYER_DATA_SAVE = "insert into bedrock_players(name, isbedrock) values(@name:=?, @isbedrock:=?) on duplicate key update isbedrock = @isbedrock";
     private static final String PLAYER_DATA_GET = "select * from bedrock_players where name = ?";
-    //region Player data
-    public String getData(String username) {
+    //end region
+
+    //region proxy data
+    private static final String PROXY_DATA_SAVE = "insert into players_count(type, counts) values(@type:=?, @counts:=?) on duplicate key update counts = @counts";
+    private static final String PROXY_DATA_GET = "select * from players_count where type = ?";
+
+    //end region
+    public String getPlayerData(String username) {
         PreparedStatement ps = null;
         ResultSet r = null;
         String type = "0";
@@ -74,7 +81,7 @@ public class MySQL {
         return type;
     }
 
-    public void setData(String username, Boolean isBedrock) {
+    public void setPlayerData(String username, Boolean isBedrock) {
         PreparedStatement ps = null;
         try {
             ps = sql.prepareStatement(PLAYER_DATA_SAVE);
@@ -87,6 +94,42 @@ public class MySQL {
             cleanup(null, ps);
         }
     }
+    //end region
+
+    //proxy data
+    public int getProxyData(String type) {
+        PreparedStatement ps = null;
+        ResultSet r = null;
+        int result = 0;
+        try {
+            ps = sql.prepareStatement(PROXY_DATA_GET);
+            ps.setString(1, type);
+            r = ps.executeQuery();
+            if (r.next()) {
+                result = r.getInt("counts");
+            }
+        } catch (SQLException e) {
+            main.getLogger().log(Level.SEVERE, "Khong the lay thong tin cua proxy", e);
+        } finally {
+            cleanup(r, ps);
+        }
+        return result;
+    }
+
+    public void setProxyData(String type, int counts) {
+        PreparedStatement ps = null;
+        try {
+            ps = sql.prepareStatement(PROXY_DATA_SAVE);
+            ps.setString(1, type);
+            ps.setInt(2, counts);
+            ps.executeUpdate();
+        } catch (SQLException e) {
+            main.getLogger().log(Level.SEVERE, "Khong the lay thong tin cua cua proxy", e);
+        } finally {
+            cleanup(null, ps);
+        }
+    }
+
 
     public static MySQL getInstance() {
         return Objects.requireNonNull(_instance);
